@@ -21,6 +21,7 @@ export default function CardCode({ path, fileContent }: CardCodeProps) {
       setCopied(false);
     }, 800);
   };
+  
   const handleCopyCommand = () => {
     const command = `import { ${path
       .split("/")
