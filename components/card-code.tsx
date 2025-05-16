@@ -23,13 +23,8 @@ export default function CardCode({ path, fileContent }: CardCodeProps) {
   };
 
   const handleCopyCommand = () => {
-    const command = `import { ${path
-      .split("/")
-      .pop()
-      ?.replace(".tsx", "")} } from "@/components/${path
-      .split("/")
-      .pop()
-      ?.replace(".tsx", "")}";`;
+    const componentName = path.split("/").pop()?.replace(".tsx", "");
+    const command = `pnpm dlx shadcn@latest add https://3dinformatica.github.io/area-registry/r/${componentName}.json`;
     navigator.clipboard.writeText(command);
     setCopiedCommand(true);
     setTimeout(() => {
