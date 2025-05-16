@@ -21,17 +21,36 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
     if (!path) return;
 
     try {
+      // Get the base path for GitHub Pages
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const basePath = isDevelopment ? '' : process.env.NEXT_PUBLIC_BASE_PATH || '';
+      
       // Convert the path to the JSON file path
-      const jsonPath = `/r/${path.split("/").pop()?.replace(".tsx", "")}.json`;
-      const response = await fetch(jsonPath);
+      const componentName = path.split("/").pop()?.replace(".tsx", "");
+      const jsonPath = `${basePath}/r/${componentName}.json`;
+      
+      console.log("Fetching from:", jsonPath);
+      const response = await fetch(jsonPath, {
+        // Add cache control to prevent stale data
+        cache: 'no-store',
+        // Add headers to ensure proper content type
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+      }
+      
       const data = await response.json();
 
       // Get the content from the first file in the files array
       const content = data.files[0].content;
       setFileContent(content);
     } catch (error) {
-      console.error("Error fetching component code:", error);
-      setFileContent("Error loading component code");
+      console.error("Error occurred during fetching component code:", error);
+      setFileContent("Error loading component code. Please try refreshing the page.");
     }
   };
 
