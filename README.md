@@ -103,6 +103,19 @@ The project includes integration with v0 using the "Open in v0" API, allowing fo
 4. Update `import-management.ts`
 5. Build the registry using `shadcn build`
 
+## Using Components from this Registry
+
+To use components from this registry in your own project, you can utilize the shadcn CLI:
+
+localhost 
+```bash
+pnpm dlx shadcn@latest add http://localhost:3000/r/[$component].json
+```
+deployed:
+```bash
+pnpm dlx shadcn@latest add http://area-library/r/[$component].json
+```
+
 ## Additional Resources
 
 - [shadcn Documentation](https://ui.shadcn.com/docs/registry)

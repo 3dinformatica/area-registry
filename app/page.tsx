@@ -13,7 +13,6 @@ export default function Home() {
   const [SelectedComponent, setSelectedComponent] =
     useState<React.ComponentType<{}>>();
 
-
   const filteredItems = registryItems.items
     .filter((item) => item.files.length === 1)
     .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
@@ -36,7 +35,7 @@ export default function Home() {
   }, [selected, filteredItems]);
 
   return (
-    <div className="flex flex-col min-h-svh p-6 gap-6 bg-background">
+    <div className="flex flex-col h-[98dvh] p-6 gap-6 bg-background overflow-hidden">
       <header className="flex flex-col gap-1">
         <h1 className="text-3xl font-bold tracking-tight">
           3D Informatica Registry
@@ -47,7 +46,7 @@ export default function Home() {
           patterns and features.
         </p>
       </header>
-      <main className="flex flex-row gap-10 h-[calc(100dvh-140px)] ">
+      <main className="flex flex-row gap-10 h-full pb-10 overflow-hidden">
         <div key={"component-list"} className="flex flex-col gap-2 w-[16%]">
           <input
             type="text"
@@ -77,16 +76,16 @@ export default function Home() {
             )}
           </section>
         </div>
-        {filteredItems[selected]?.files[0]?.path ? (
-          <TabsView
-            key={"component-view"}
-            title={filteredItems[selected]?.title ?? ""}
-            path={filteredItems[selected]?.files[0]?.path ?? ""}
-            selectedComponent={SelectedComponent}
-          />
-        ) : (
-          <div className="flex flex-col gap-1.5 items-center py-4 bg-accent/40 rounded-md w-[84%]" />
-        )}
+        <div className="flex flex-col gap-2 w-[84%] h-full">
+          {filteredItems[selected]?.files[0]?.path && (
+            <TabsView
+              key={"component-view"}
+              title={filteredItems[selected]?.title ?? ""}
+              path={filteredItems[selected]?.files[0]?.path ?? ""}
+              selectedComponent={SelectedComponent}
+            />
+          )}
+        </div>
       </main>
     </div>
   );

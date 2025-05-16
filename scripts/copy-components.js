@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Source directory containing the components
-const sourceDir = path.join(__dirname, '../registry/new-york');
+const sourceDir = path.join(__dirname, '../registry/area');
 
 // Destination directory in public
-const destDir = path.join(__dirname, '../public/registry/new-york');
+const destDir = path.join(__dirname, '../public/registry/area');
 
 // Ensure the destination directory exists
 if (!fs.existsSync(destDir)) {
@@ -39,5 +39,4 @@ function copyDirectory(source, destination) {
 
 // Copy the components
 copyDirectory(sourceDir, destDir);
-
 console.log('Components copied to public directory successfully!'); 

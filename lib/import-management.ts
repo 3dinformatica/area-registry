@@ -19,10 +19,11 @@ type ComponentMap = {
   };
   
   // Pre-define dynamic imports for known components
-  export const componentsMap: ComponentMap = {
-    "registry/area/test-1.tsx": dynamic(() => import("@/registry/area/test-1").then(mod => mod.Test1)),
-    "registry/new-york/area-hello-world/area-hello-world.tsx": dynamic(() => import("@/registry/new-york/area-hello-world/area-hello-world").then(mod => mod.AreaHelloWorld)),
-    "registry/new-york/blocks/hello-world/hello-world.tsx": dynamic(() => import("@/registry/new-york/blocks/hello-world/hello-world").then(mod => mod.HelloWorld)),
-    "registry/new-york/blocks/example-form/example-form.tsx": dynamic(() => import("@/registry/new-york/blocks/example-form/example-form").then(mod => mod.ExampleForm)),
-    "registry/new-york/blocks/example-with-css/example-card.tsx": dynamic(() => import("@/registry/new-york/blocks/example-with-css/example-card").then(mod => mod.ExampleCard)),
-  };
+export const componentsMap: ComponentMap = {
+  "registry/area/nav-bar/navbar.tsx": dynamic(
+    () => import("@/registry/area/nav-bar/navbar").then((mod) => mod.Navbar)
+  ),
+  "registry/area/hello-world/hello-world.tsx": dynamic(
+    () => import("@/registry/area/hello-world/hello-world").then((mod) => mod.HelloWorld)
+  ),
+};
