@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/francescolimoni/Developer/area-registry/registry/area/hello-world/hello-world.tsx"],"sourcesContent":["export function HelloWorld() {\n  return <h1 className=\"text-2xl font-bold\">Hello World</h1>\n}\n"],"names":[],"mappings":";;;;;AAAO,SAAS;IACd,qBAAO,+VAAC;QAAG,WAAU;kBAAqB;;;;;;AAC5C;KAFgB","debugId":null}}]
+}

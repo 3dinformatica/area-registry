@@ -1,0 +1,17 @@
+{
+  "[project]/registry/area/nav-bar/navbar.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/registry/area/nav-bar/navbar.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules__pnpm_1b30b76e._.js",
+      "static/chunks/registry_area_nav-bar_navbar_tsx_ec6749f3._.js",
+      "static/chunks/registry_area_nav-bar_navbar_tsx_1012fdaf._.js"
+    ]
+  },
+  "[project]/registry/area/hello-world/hello-world.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/registry/area/hello-world/hello-world.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/registry_area_hello-world_hello-world_tsx_f1d37d86._.js",
+      "static/chunks/registry_area_hello-world_hello-world_tsx_1012fdaf._.js"
+    ]
+  }
+}

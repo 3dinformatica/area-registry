@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/registry/new-york/ui/card";
-import { Button } from "@/registry/new-york/ui/button";
 import { CopyIcon, EyeIcon } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
 
 interface RegistryCardProps {
   title: string;

@@ -11,7 +11,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<number>(0);
   const [SelectedComponent, setSelectedComponent] =
-    useState<React.ComponentType<{}>>();
+    useState<React.ComponentType>();
 
   const filteredItems = registryItems.items
     .filter((item) => item.files.length === 1)
