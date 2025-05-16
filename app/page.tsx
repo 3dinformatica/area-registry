@@ -38,12 +38,12 @@ export default function Home() {
     <div className="flex flex-col h-[98dvh] p-6 gap-6 bg-background overflow-hidden">
       <header className="flex flex-col gap-1">
         <h1 className="text-3xl font-bold tracking-tight">
-          3D Informatica Registry
+          3D Informatica UI Registry
         </h1>
         <p className="text-muted-foreground">
-          A collection of reusable React components and code examples built with
-          shadcn/ui, designed to help developers quickly implement common UI
-          patterns and features.
+          A collection of reusable React components built with shadcn/ui,
+          designed to help developers quickly implement common UI patterns and
+          features.
         </p>
       </header>
       <main className="flex flex-row gap-10 h-full pb-10 overflow-hidden">

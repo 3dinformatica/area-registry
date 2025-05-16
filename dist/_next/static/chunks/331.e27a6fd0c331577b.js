@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[331],{8331:(l,e,r)=>{r.r(e),r.d(e,{HelloWorld:()=>n});var s=r(3396);function n(){return(0,s.jsx)("h1",{className:"text-2xl font-bold",children:"Hello World"})}}}]);

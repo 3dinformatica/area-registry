@@ -113,7 +113,7 @@ pnpm dlx shadcn@latest add http://localhost:3000/r/[$component].json
 ```
 deployed:
 ```bash
-pnpm dlx shadcn@latest add http://area-library/r/[$component].json
+pnpm dlx shadcn@latest add http://https://3dinformatica.github.io/area-registry/r/[$component].json
 ```
 
 ## Additional Resources
