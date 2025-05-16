@@ -2,16 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { CheckIcon, CopyIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import React from "react";
-import { Button } from "./ui/button";
 import CardCode from "./card-code";
 
 interface TabsViewProps {
   title: string;
   path: string;
-  selectedComponent: React.ComponentType<{}> | undefined;
+  selectedComponent: React.ComponentType | undefined;
 }
 
 export function TabsView({ title, path, selectedComponent }: TabsViewProps) {

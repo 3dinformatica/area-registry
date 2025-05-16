@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, CheckIcon, Code2, Command, CopyIcon, File } from "lucide-react";
+import { Check, Code2, Command, File } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export default function CardCode({ path, fileContent }: CardCodeProps) {
       setCopied(false);
     }, 800);
   };
-  
+
   const handleCopyCommand = () => {
     const command = `import { ${path
       .split("/")
