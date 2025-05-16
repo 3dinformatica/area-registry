@@ -1,70 +1,88 @@
-import * as React from "react"
-import { OpenInV0Button } from "@/components/open-in-v0-button"
-import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world"
-import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form"
-import PokemonPage from "@/registry/new-york/blocks/complex-component/page"
-import { ExampleCard } from "@/registry/new-york/blocks/example-with-css/example-card"
-// This page displays items from the custom registry.
-// You are free to implement this with your own design as needed.
+"use client";
+
+import * as React from "react";
+import { useState, useEffect } from "react";
+import registryItems from "@/registry.json";
+import { CardListItem } from "@/components/card-list-item";
+import { componentsMap } from "@/lib/import-management";
+import { TabsView } from "@/components/tabs-view";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<number>(0);
+  const [SelectedComponent, setSelectedComponent] =
+    useState<React.ComponentType<{}> | null>(null);
+
+  const filteredItems = registryItems.items
+    .filter((item) => item.files.length === 1)
+    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+
+  const fetchComponent = () => {
+    if (filteredItems[selected]?.files[0]?.path) {
+      const componentPath = filteredItems[selected].files[0].path;
+      const Component = componentsMap[componentPath];
+      if (Component) {
+        setSelectedComponent(() => Component);
+      } else {
+        console.error("Component not found in componentMap:", componentPath);
+        setSelectedComponent(null);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchComponent();
+  }, [selected, filteredItems]);
+
   return (
-    <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
+    <div className="flex flex-col min-h-svh p-6 gap-6 bg-background">
       <header className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">Custom Registry</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          3D Informatica Registry
+        </h1>
         <p className="text-muted-foreground">
-          A custom registry for distributing code using shadcn.
+          A collection of reusable React components and code examples built with
+          shadcn/ui, designed to help developers quickly implement common UI
+          patterns and features.
         </p>
       </header>
-      <main className="flex flex-col flex-1 gap-8">
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A simple hello world component
-            </h2>
-            <OpenInV0Button name="hello-world" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <HelloWorld />
-          </div>
+      <main className="flex flex-row gap-10 h-[calc(100dvh-140px)] overflow-hidden">
+        <div key={"component-list"} className="flex flex-col gap-2 flex-1">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search for a component..."
+            className="w-full rounded-sm border-input bg-accent p-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          />
+          <section className="flex flex-col gap-2 py-2">
+            {filteredItems?.length > 0 ? (
+              filteredItems.map((item, index) => (
+                <CardListItem
+                  key={index}
+                  item={{
+                    title: item.title,
+                    description: item.description,
+                    component: item.files[0].path,
+                  }}
+                  selected={selected === index}
+                  onSelect={() => setSelected(index)}
+                />
+              ))
+            ) : (
+              <div className="flex flex-col gap-1.5 items-center py-4">
+                <p className="text-muted-foreground">No results found</p>
+              </div>
+            )}
+          </section>
         </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A contact form with Zod validation.
-            </h2>
-            <OpenInV0Button name="example-form" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[500px] relative">
-            <ExampleForm />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A complex component showing hooks, libs and components.
-            </h2>
-            <OpenInV0Button name="complex-component" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <PokemonPage />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A login form with a CSS file.
-            </h2>
-            <OpenInV0Button name="example-with-css" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <ExampleCard />
-          </div>
-        </div>
+        <TabsView
+          key={"component-view"}
+          title={filteredItems[selected]?.title ?? ""}
+          path={filteredItems[selected]?.files[0]?.path ?? ""}
+          selectedComponent={SelectedComponent}
+        />
       </main>
     </div>
-  )
+  );
 }

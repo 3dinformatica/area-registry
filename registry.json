@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
+  "name": "3D informatica",
+  "homepage": "https://www.3di.it/",
   "items": [
     {
       "name": "hello-world",
@@ -72,6 +72,18 @@
         },
         {
           "path": "registry/new-york/blocks/example-with-css/example-card.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "area-hello-world",
+      "type": "registry:component",
+      "title": "Area Hello World",
+      "description": "A simple hello world component",
+      "files": [
+        {
+          "path": "registry/new-york/area-hello-world/area-hello-world.tsx",
           "type": "registry:component"
         }
       ]
