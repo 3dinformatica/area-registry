@@ -11,7 +11,8 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<number>(0);
   const [SelectedComponent, setSelectedComponent] =
-    useState<React.ComponentType<{}> | null>(null);
+    useState<React.ComponentType<{}>>();
+
 
   const filteredItems = registryItems.items
     .filter((item) => item.files.length === 1)
@@ -25,7 +26,7 @@ export default function Home() {
         setSelectedComponent(() => Component);
       } else {
         console.error("Component not found in componentMap:", componentPath);
-        setSelectedComponent(null);
+        setSelectedComponent(undefined);
       }
     }
   };
@@ -46,8 +47,8 @@ export default function Home() {
           patterns and features.
         </p>
       </header>
-      <main className="flex flex-row gap-10 h-[calc(100dvh-140px)] overflow-hidden">
-        <div key={"component-list"} className="flex flex-col gap-2 flex-1">
+      <main className="flex flex-row gap-10 h-[calc(100dvh-140px)] ">
+        <div key={"component-list"} className="flex flex-col gap-2 w-[16%]">
           <input
             type="text"
             value={search}
@@ -76,12 +77,16 @@ export default function Home() {
             )}
           </section>
         </div>
-        <TabsView
-          key={"component-view"}
-          title={filteredItems[selected]?.title ?? ""}
-          path={filteredItems[selected]?.files[0]?.path ?? ""}
-          selectedComponent={SelectedComponent}
-        />
+        {filteredItems[selected]?.files[0]?.path ? (
+          <TabsView
+            key={"component-view"}
+            title={filteredItems[selected]?.title ?? ""}
+            path={filteredItems[selected]?.files[0]?.path ?? ""}
+            selectedComponent={SelectedComponent}
+          />
+        ) : (
+          <div className="flex flex-col gap-1.5 items-center py-4 bg-accent/40 rounded-md w-[84%]" />
+        )}
       </main>
     </div>
   );

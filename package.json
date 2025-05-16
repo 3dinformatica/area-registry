@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "registry:add": "pnpm dlx shadcn@latest add [component]",
-    "registry:build": ""
+    "registry:build": "pnpm dlx shadcn@latest build"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.4",

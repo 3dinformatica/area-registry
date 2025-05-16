@@ -10,7 +10,7 @@ import React from "react";
 interface TabsViewProps {
   title: string;
   path: string;
-  selectedComponent: React.ComponentType<{}> | null;
+  selectedComponent: React.ComponentType<{}> | undefined;
 }
 
 export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
@@ -27,6 +27,10 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
   };
 
   const fetchFile = async () => {
+    console.log("path", path);
+
+    if (!path) return;
+
     try {
       // Convert the path to the JSON file path
       const jsonPath = `/r/${path.split("/").pop()?.replace(".tsx", "")}.json`;
@@ -50,7 +54,7 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
     <Tabs
       defaultValue={view}
       onValueChange={(value) => setView(value as "preview" | "code")}
-      className="flex flex-col gap-2 max-w-full w-[80%] items-start justify-start"
+      className="flex flex-col gap-2 max-w-full w-[84%] items-start justify-start"
     >
       <div className="flex gap-2 items-center justify-between w-full pb-2 border-b">
         <section
@@ -88,7 +92,7 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
             <span>{path}</span>
           </section>
           <pre className="w-full h-full p-6 overflow-y-auto">
-            <code lang="json">{fileContent}</code>
+            <code lang="tsx">{fileContent}</code>
           </pre>
         </div>
       </TabsContent>

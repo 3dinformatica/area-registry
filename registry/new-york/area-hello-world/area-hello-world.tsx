@@ -1,4 +1,4 @@
-export default function AreaHelloWorld() {
+export function AreaHelloWorld() {
     return <div>
         <h1>Hello World</h1>
     </div>
