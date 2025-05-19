@@ -21,9 +21,12 @@ type ComponentMap = {
   // Pre-define dynamic imports for known components
 export const componentsMap: ComponentMap = {
   "registry/area/nav-bar/navbar.tsx": dynamic(
-    () => import("@/registry/area/nav-bar/navbar").then((mod) => mod.Navbar)
+    () => import("@/registry/area/navbar/navbar").then((mod) => mod.Navbar)
   ),
   "registry/area/hello-world/hello-world.tsx": dynamic(
     () => import("@/registry/area/hello-world/hello-world").then((mod) => mod.HelloWorld)
+  ),
+  "registry/area/select/select.tsx": dynamic<any>(
+    () => import("@/registry/area/select/select").then((mod) => mod.AreaSelect)
   ),
 };

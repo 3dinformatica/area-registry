@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:ui",
+  "title": "Select",
+  "description": "A simple select component.",
+  "files": [
+    {
+      "path": "registry/area/select/select.tsx",
+      "content": "import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from \"@/components/ui/select\";\nimport React from \"react\";\n\ninterface AreaSelectProps<T> {\n    value: string;\n    options: T[];\n    optionKey: keyof T;\n    onChange: (value: string) => void;\n    className?: string;\n  }\n  \n  const AreaSelect = React.forwardRef(<T,>(props: AreaSelectProps<T>, ref: React.ForwardedRef<HTMLDivElement>) => {\n    const { className, options, value, onChange, optionKey, ...rest } = props;\n\n    return (\n      <Select value={value} onValueChange={onChange}>\n      <SelectTrigger className=\"h-8 min-w-[12dvw] max-w-[16dvw] border-primary-foreground/40 py-0 text-sm font-semibold text-primary-foreground hover:border-primary-foreground/60 hover:bg-primary-foreground/10\">\n        {value == undefined && <p className=\"text-muted-foreground\">-</p>}\n        <SelectValue />\n      </SelectTrigger>\n      <SelectContent>\n        {options.map((item, index) => (\n          <SelectItem key={index} value={String(item[optionKey])}>\n            {String(item[optionKey])}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n    )\n  })\n\n  AreaSelect.displayName = \"AreaSelect\";\n  export { AreaSelect };",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -22,7 +22,19 @@
       "description": "A simple nav bar component.",
       "files": [
         {
-          "path": "registry/area/nav-bar/navbar.tsx",
+          "path": "registry/area/navbar/navbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A simple select component.",
+      "files": [
+        {
+          "path": "registry/area/select/select.tsx",
           "type": "registry:ui"
         }
       ]
