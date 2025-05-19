@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "registry:clear": "rm -rf public/r",
-    "registry:build": "pnpm registry:clear && pnpm dlx shadcn@latest build"
+    "registry:theme": "cp registry/area/area-theme.json public/r/area-theme.json",
+    "registry:build": "pnpm registry:clear && pnpm dlx shadcn@latest build && pnpm registry:theme"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.4",
