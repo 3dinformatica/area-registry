@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import registryItems from "@/registry.json";
-import { CardListItem } from "@/components/card-list-item";
+import { CardListItem, RegistryItem } from "@/components/card-list-item";
 import { componentsMap } from "@/lib/import-management";
 import { TabsView } from "@/components/tabs-view";
 
@@ -13,12 +13,16 @@ export default function Home() {
   const [SelectedComponent, setSelectedComponent] =
     useState<React.ComponentType>();
 
-  const filteredItems = registryItems.items
-    .filter((item) => item.files.length === 1)
+  const filteredItems: RegistryItem[] = registryItems.items
+    .filter((item): item is RegistryItem => 
+      item.type === "registry:ui" && 
+      Array.isArray(item.files) && 
+      item.files.length === 1
+    )
     .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   const fetchComponent = () => {
-    if (filteredItems[selected]?.files[0]?.path) {
+    if (filteredItems[selected]?.files?.[0]?.path) {
       const componentPath = filteredItems[selected].files[0].path;
       const Component = componentsMap[componentPath];
       if (Component) {
@@ -60,11 +64,7 @@ export default function Home() {
               filteredItems.map((item, index) => (
                 <CardListItem
                   key={index}
-                  item={{
-                    title: item.title,
-                    description: item.description,
-                    component: item.files[0].path,
-                  }}
+                  item={item }
                   selected={selected === index}
                   onSelect={() => setSelected(index)}
                 />
@@ -77,11 +77,11 @@ export default function Home() {
           </section>
         </div>
         <div className="flex flex-col gap-2 w-[84%] h-full">
-          {filteredItems[selected]?.files[0]?.path && (
+          {filteredItems[selected]?.files?.[0]?.path && (
             <TabsView
               key={"component-view"}
               title={filteredItems[selected]?.title ?? ""}
-              path={filteredItems[selected]?.files[0]?.path ?? ""}
+              path={filteredItems[selected]?.files?.[0]?.path ?? ""}
               selectedComponent={SelectedComponent}
             />
           )}

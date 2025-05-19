@@ -1,5 +1,5 @@
 {
-  "name": "registry",
+  "name": "area-registry",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "registry:add": "pnpm dlx shadcn@latest add [component]",
-    "registry:build": "pnpm dlx shadcn@latest build"
+    "registry:clear": "rm -rf public/r",
+    "registry:build": "pnpm registry:clear && pnpm dlx shadcn@latest build"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.4",

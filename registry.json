@@ -26,6 +26,21 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "area-theme",
+      "type": "registry:theme",
+      "title": "Area Theme",
+      "description": "A simple area theme component.",
+      "cssVars": {
+        "light": {
+          "$ref": "registry/area/area-theme.json#/light"
+        },
+        "dark": {
+          "$ref": "registry/area/area-theme.json#/dark"
+        }
+      }
     }
   ]
 }
