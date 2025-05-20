@@ -3,12 +3,13 @@
   "name": "hello-world",
   "type": "registry:ui",
   "title": "Hello World",
-  "description": "A simple hello world component.",
+  "description": "Hello World component",
   "files": [
     {
-      "path": "registry/area/hello-world/hello-world.tsx",
+      "path": "registry/ui/hello-world/hello-world.tsx",
       "content": "export function HelloWorld() {\n  return <h1 className=\"text-2xl font-bold\">Hello World</h1>\n}\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "area/ui/hello-world.tsx"
     }
   ]
 }
