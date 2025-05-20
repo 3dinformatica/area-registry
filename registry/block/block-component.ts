@@ -10,7 +10,7 @@ export const BlockComponents: RegistryItem[] = [
       {
         type: "registry:block",
         path: "registry/block/navbar/navbar.tsx",
-        target: "area/navbar.tsx",
+        target: "components/area/block/navbar.tsx",
       },
     ],
   },
@@ -23,7 +23,7 @@ export const BlockComponents: RegistryItem[] = [
       {
         type: "registry:block",
         path: "registry/block/sidebar/sidebar.tsx",
-        target: "area/sidebar.tsx",
+        target: "components/area/block/sidebar.tsx",
       },
     ],
   },

@@ -9,7 +9,7 @@
       "path": "registry/block/sidebar/sidebar.tsx",
       "content": "export function Sidebar() {\n  return <div>Sidebar</div>\n}",
       "type": "registry:block",
-      "target": "area/sidebar.tsx"
+      "target": "components/area/block/sidebar.tsx"
     }
   ]
 }

@@ -15,7 +15,7 @@
         {
           "type": "registry:ui",
           "path": "registry/ui/tooltip-button/tooltip-button.tsx",
-          "target": "area/ui/tooltip-button.tsx"
+          "target": "components/area/ui/tooltip-button.tsx"
         }
       ]
     },
@@ -28,7 +28,7 @@
         {
           "type": "registry:ui",
           "path": "registry/ui/hello-world/hello-world.tsx",
-          "target": "area/ui/hello-world.tsx"
+          "target": "components/area/ui/hello-world.tsx"
         }
       ]
     },
@@ -41,7 +41,7 @@
         {
           "type": "registry:ui",
           "path": "registry/ui/select/select.tsx",
-          "target": "area/ui/select.tsx"
+          "target": "components/area/ui/select.tsx"
         }
       ]
     },
@@ -54,7 +54,7 @@
         {
           "type": "registry:block",
           "path": "registry/block/navbar/navbar.tsx",
-          "target": "area/navbar.tsx"
+          "target": "components/area/block/navbar.tsx"
         }
       ]
     },
@@ -67,7 +67,7 @@
         {
           "type": "registry:block",
           "path": "registry/block/sidebar/sidebar.tsx",
-          "target": "area/sidebar.tsx"
+          "target": "components/area/block/sidebar.tsx"
         }
       ]
     }

@@ -12,7 +12,7 @@ export const UiComponents: RegistryItem[] = [
       {
         type: "registry:ui",
         path: "registry/ui/tooltip-button/tooltip-button.tsx",
-        target: "area/ui/tooltip-button.tsx",
+        target: "components/area/ui/tooltip-button.tsx",
       },
     ],
   },
@@ -25,7 +25,7 @@ export const UiComponents: RegistryItem[] = [
       {
         type: "registry:ui",
         path: "registry/ui/hello-world/hello-world.tsx",
-        target: "area/ui/hello-world.tsx",
+        target: "components/area/ui/hello-world.tsx",
       },
     ],
   },
@@ -38,7 +38,7 @@ export const UiComponents: RegistryItem[] = [
       {
         type: "registry:ui",
         path: "registry/ui/select/select.tsx",
-        target: "area/ui/select.tsx",
+        target: "components/area/ui/select.tsx",
       },
     ],
   },
