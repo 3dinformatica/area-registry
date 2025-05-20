@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
-import registryItems from "@/registry.json";
+import registry from "@/registry.json";
 import { CardListItem, RegistryItem } from "@/components/card-list-item";
-import { componentsMap } from "@/lib/import-management";
+import { uiDynamicImports } from "@/lib/import-management";
 import { TabsView } from "@/components/tabs-view";
 
 export default function Home() {
@@ -13,22 +13,22 @@ export default function Home() {
   const [SelectedComponent, setSelectedComponent] =
     useState<React.ComponentType>();
 
-  const filteredItems: RegistryItem[] = registryItems.items
-    .filter((item): item is RegistryItem => 
-      item.type === "registry:ui" && 
-      Array.isArray(item.files) && 
-      item.files.length === 1
-    )
+  const registryItems: RegistryItem[] = registry.items
+    .filter((item): item is RegistryItem => item.type === "registry:ui")
     .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   const fetchComponent = () => {
-    if (filteredItems[selected]?.files?.[0]?.path) {
-      const componentPath = filteredItems[selected].files[0].path;
-      const Component = componentsMap[componentPath];
+    if (registryItems[selected]?.files?.[0]?.path) {
+      const componentPath = registryItems.at(selected)?.files?.[0]?.path ?? "";
+      const Component = uiDynamicImports[componentPath];
+
+      console.log('Component:', Component);
+      console.log('componentPath:', componentPath);
+
       if (Component) {
         setSelectedComponent(() => Component);
       } else {
-        console.error("Component not found in componentMap:", componentPath);
+        console.error("Component not found");
         setSelectedComponent(undefined);
       }
     }
@@ -36,7 +36,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchComponent();
-  }, [selected, filteredItems]);
+  }, [selected, registryItems]);
 
   return (
     <div className="flex flex-col h-[98dvh] p-6 gap-6 bg-background overflow-hidden">
@@ -60,11 +60,11 @@ export default function Home() {
             className="w-full rounded-sm border-input bg-accent p-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
           <section className="flex flex-col gap-2 py-2">
-            {filteredItems?.length > 0 ? (
-              filteredItems.map((item, index) => (
+            {registryItems?.length > 0 ? (
+              registryItems.map((item, index) => (
                 <CardListItem
                   key={index}
-                  item={item }
+                  item={item}
                   selected={selected === index}
                   onSelect={() => setSelected(index)}
                 />
@@ -77,11 +77,11 @@ export default function Home() {
           </section>
         </div>
         <div className="flex flex-col gap-2 w-[84%] h-full">
-          {filteredItems[selected]?.files?.[0]?.path && (
+          {registryItems.at(selected)?.files?.[0]?.path && (
             <TabsView
               key={"component-view"}
-              title={filteredItems[selected]?.title ?? ""}
-              path={filteredItems[selected]?.files?.[0]?.path ?? ""}
+              title={registryItems.at(selected)?.title ?? ""}
+              path={registryItems.at(selected)?.files?.[0]?.path ?? ""}
               selectedComponent={SelectedComponent}
             />
           )}

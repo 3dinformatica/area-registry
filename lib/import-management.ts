@@ -9,24 +9,35 @@
  * allowing lazy-loading of components when they are needed. This helps with
  * code-splitting and performance optimization.
  *
- * @typedef {Object.<string, React.ComponentType>} ComponentMap
+ * @typedef {Object.<string, React.ComponentType<any>>} ComponentMap
  */
 
 import dynamic from "next/dynamic";
 
-type ComponentMap = {
-    [key: string]: React.ComponentType;
-  };
-  
-  // Pre-define dynamic imports for known components
-export const componentsMap: ComponentMap = {
-  "registry/area/nav-bar/navbar.tsx": dynamic(
-    () => import("@/registry/area/navbar/navbar").then((mod) => mod.Navbar)
+type ComponentImportMap = {
+  [key: string]: React.ComponentType<any>;
+};
+
+// Pre-define dynamic imports for ui components
+export const uiDynamicImports: ComponentImportMap = {
+  "registry/ui/hello-world/hello-world.tsx": dynamic(
+    () => import("@/registry/ui/hello-world/hello-world").then((mod) => mod.HelloWorld)
   ),
-  "registry/area/hello-world/hello-world.tsx": dynamic(
-    () => import("@/registry/area/hello-world/hello-world").then((mod) => mod.HelloWorld)
+  "registry/ui/select/select.tsx": dynamic(
+    () => import("@/registry/ui/select/select").then((mod) => mod.AreaSelect)
   ),
-  "registry/area/select/select.tsx": dynamic<any>(
-    () => import("@/registry/area/select/select").then((mod) => mod.AreaSelect)
+  "registry/ui/tooltip-button/tooltip-button.tsx": dynamic(
+    () => import("@/registry/ui/tooltip-button/tooltip-button").then((mod) => mod.TooltipButton)
   ),
+};
+
+// Pre-define dynamic imports for block components
+export const blockDynamicImports: ComponentImportMap = {
+  "registry/block/navbar/navbar.tsx": dynamic(
+    () => import("@/registry/block/navbar/navbar").then((mod) => mod.Navbar)
+  ),
+  "registry/block/sidebar/sidebar.tsx": dynamic(
+    () => import("@/registry/block/sidebar/sidebar").then((mod) => mod.Sidebar)
+  ),
+ 
 };

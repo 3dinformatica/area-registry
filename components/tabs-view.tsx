@@ -81,7 +81,7 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
         value="preview"
         className="flex w-full h-full items-center justify-center  p-6"
       >
-        {selectedComponent && React.createElement(selectedComponent)}
+        {selectedComponent ? React.createElement(selectedComponent) : <p>Component not found</p>}
       </TabsContent>
       <TabsContent
         value="code"

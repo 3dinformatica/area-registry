@@ -1,29 +1,34 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "3D informatica",
   "homepage": "https://www.3di.it/",
   "items": [
     {
-      "name": "hello-world",
+      "name": "tooltip-button",
       "type": "registry:ui",
-      "title": "Hello World",
-      "description": "A simple hello world component.",
+      "title": "Tooltip Button",
+      "dependencies": [
+        "button",
+        "tooltip"
+      ],
+      "description": "Tooltip Button component",
       "files": [
         {
-          "path": "registry/area/hello-world/hello-world.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "path": "registry/ui/tooltip-button/tooltip-button.tsx",
+          "target": "area/ui/tooltip-button.tsx"
         }
       ]
     },
     {
-      "name": "navbar",
+      "name": "hello-world",
       "type": "registry:ui",
-      "title": "Nav Bar",
-      "description": "A simple nav bar component.",
+      "title": "Hello World",
+      "description": "Hello World component",
       "files": [
         {
-          "path": "registry/area/navbar/navbar.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "path": "registry/ui/hello-world/hello-world.tsx",
+          "target": "area/ui/hello-world.tsx"
         }
       ]
     },
@@ -31,28 +36,40 @@
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "A simple select component.",
+      "description": "Select component",
       "files": [
         {
-          "path": "registry/area/select/select.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "path": "registry/ui/select/select.tsx",
+          "target": "area/ui/select.tsx"
         }
       ]
     },
     {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "area-theme",
-      "type": "registry:theme",
-      "title": "Area Theme",
-      "description": "A simple area theme component.",
-      "cssVars": {
-        "light": {
-          "$ref": "registry/area/area-theme.json#/light"
-        },
-        "dark": {
-          "$ref": "registry/area/area-theme.json#/dark"
+      "name": "navbar",
+      "type": "registry:block",
+      "title": "Navbar",
+      "description": "Navbar component",
+      "files": [
+        {
+          "type": "registry:block",
+          "path": "registry/block/navbar/navbar.tsx",
+          "target": "area/navbar.tsx"
         }
-      }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:block",
+      "title": "Sidebar",
+      "description": "Sidebar component",
+      "files": [
+        {
+          "type": "registry:block",
+          "path": "registry/block/sidebar/sidebar.tsx",
+          "target": "area/sidebar.tsx"
+        }
+      ]
     }
   ]
 }
