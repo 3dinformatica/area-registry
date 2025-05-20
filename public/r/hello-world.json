@@ -9,7 +9,7 @@
       "path": "registry/ui/hello-world/hello-world.tsx",
       "content": "export function HelloWorld() {\n  return <h1 className=\"text-2xl font-bold\">Hello World</h1>\n}\n",
       "type": "registry:ui",
-      "target": "area/ui/hello-world.tsx"
+      "target": "components/area/ui/hello-world.tsx"
     }
   ]
 }
