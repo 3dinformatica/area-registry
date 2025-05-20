@@ -3,9 +3,11 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import registry from "@/registry.json";
-import { CardListItem, RegistryItem } from "@/components/card-list-item";
+import { CardListItem } from "@/components/card-list-item";
 import { uiDynamicImports } from "@/lib/import-management";
 import { TabsView } from "@/components/tabs-view";
+import { RegistryItem, registrySchema } from "@/lib/schema";
+
 
 export default function Home() {
   const [search, setSearch] = useState("");
@@ -13,7 +15,8 @@ export default function Home() {
   const [SelectedComponent, setSelectedComponent] =
     useState<React.ComponentType>();
 
-  const registryItems: RegistryItem[] = registry.items
+  const validatedRegistry = registrySchema.parse(registry);
+  const registryItems: RegistryItem[] = validatedRegistry.items
     .filter((item): item is RegistryItem => item.type === "registry:ui")
     .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 

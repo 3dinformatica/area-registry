@@ -1,15 +1,5 @@
 import { cn } from "@/lib/utils";
-
-export type RegistryItem = {
-  name: string;
-  type: string;
-  title: string;
-  description: string;
-  files: {
-    path: string;
-    type: string;
-  }[];
-};
+import { RegistryItem } from "@/lib/schema";
 
 interface CardListItemProps {
   item: RegistryItem;
