@@ -2,7 +2,6 @@ import * as LucideIcons from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { RegistryItem } from "@/lib/schema";
 import { CardListItem } from "./card-list-item";
-import { Accordion } from "@radix-ui/react-accordion";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 interface ListGroupProps {
@@ -19,7 +18,7 @@ export default function ListGroup(props: ListGroupProps) {
 
   return (
     <AccordionItem value={title} className="flex flex-col gap-1 w-full h-fit items-start justify-start border-none">
-      <AccordionTrigger className="py-1">
+      <AccordionTrigger className="py-1 cursor-pointer">
         <div className="flex gap-2 items-center justify-start text-muted-foreground text-sm font-medium">
         <Icon size={14} />
         <p>{title}</p>

@@ -3,8 +3,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import registry from "@/registry.json";
-import { RegistryItem, registrySchema } from "@/lib/schema";
-import { Folder } from "lucide-react";
+import { RegistryItem } from "@/lib/schema";
 import ListGroup from "@/components/list-group";
 import ContentView from "@/components/content-view";
 import { Accordion } from "@/components/ui/accordion";
@@ -40,6 +39,7 @@ export default function Home() {
           <input
             placeholder="Search for components..."
             className="bg-accent w-full p-1.5 rounded-sm"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <Accordion type="multiple" className="flex flex-col gap-0">
             <ListGroup

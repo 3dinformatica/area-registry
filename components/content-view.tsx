@@ -1,8 +1,7 @@
 "use client";
 
 import { RegistryItem, RegistryItemFile } from "@/lib/schema";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { cn, extractImports, extractJSX } from "@/lib/utils";
+import { extractImports, extractJSX } from "@/lib/utils";
 import CopyButton from "./button-copy";
 import ContentSection from "./content-section";
 import { useMemo, useState, useEffect } from "react";
