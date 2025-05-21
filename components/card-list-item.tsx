@@ -15,23 +15,28 @@ export function CardListItem({ item, selected, onSelect }: CardListItemProps) {
         selected ? "bg-card border-primary" : ""
       }`}
     >
-      <section className="flex flex-row gap-2 items-center hover:underline">
+      <section
+        className={cn(
+          "flex flex-row gap-2 items-center hover:underline",
+          selected ? "text-primary" : "text-foreground"
+        )}
+      >
         <div
           className={cn(
-            "size-2 rounded-full mr-0 p-0",
-            selected ? "bg-blue-500" : "bg-transparent"
+            "size-2 rounded-full mr-1 p-0",
+            selected ? "bg-primary" : "bg-transparent"
           )}
         />
         <h2
           className={cn(
-            "text-base font-medium",
-            selected ? "text-primary" : "text-muted-foreground"
+            "text-sm font-medium",
+            // selected ? "text-primary" : "text-foreground"
           )}
         >
           {item.title}
         </h2>
       </section>
-      <p className="text-sm text-muted-foreground">{item.name}</p>
+      <p className="text-sm font-light text-muted-foreground">{item.name}</p>
     </div>
   );
 }

@@ -4,59 +4,71 @@ import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import React from "react";
 import CardCode from "./card-code";
+import { RegistryItem } from "@/lib/schema";
 
 interface TabsViewProps {
-  title: string;
-  path: string;
-  selectedComponent: React.ComponentType | undefined;
+  item?: RegistryItem;
+  selectedComponent: React.ComponentType;
 }
 
-export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
+export function TabsView({ item, selectedComponent }: TabsViewProps) {
+  if (!item) return null;
+
+  const { files, title } = item;
+
   const [view, setView] = useState<"preview" | "code">("preview");
   const [fileContent, setFileContent] = useState<string>("");
 
   const fetchFile = async () => {
-    console.log("path", path);
+    console.log("path", files?.at(0)?.path);
 
-    if (!path) return;
+    if (!files?.at(0)?.path) return;
 
     try {
+      const path = files?.at(0)?.path;
+
       // Get the base path for GitHub Pages
-      const isDevelopment = process.env.NODE_ENV === 'development';
-      const basePath = isDevelopment ? '' : process.env.NEXT_PUBLIC_BASE_PATH || '';
-      
+      const isDevelopment = process.env.NODE_ENV === "development";
+      const basePath = isDevelopment
+        ? ""
+        : process.env.NEXT_PUBLIC_BASE_PATH || "";
+
       // Convert the path to the JSON file path
-      const componentName = path.split("/").pop()?.replace(".tsx", "");
+      const componentName = path?.split("/").pop()?.replace(".tsx", "");
       const jsonPath = `${basePath}/r/${componentName}.json`;
-      
+
       console.log("Fetching from:", jsonPath);
       const response = await fetch(jsonPath, {
         // Add cache control to prevent stale data
-        cache: 'no-store',
+        cache: "no-store",
         // Add headers to ensure proper content type
         headers: {
-          'Accept': 'application/json',
-        }
+          Accept: "application/json",
+        },
       });
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
 
       // Get the content from the first file in the files array
-      const content = data.files[0].content;
+      const content = data.files.at(0)?.content;
       setFileContent(content);
     } catch (error) {
       console.error("Error occurred during fetching component code:", error);
-      setFileContent("Error loading component code. Please try refreshing the page.");
+      setFileContent(
+        "Error loading component code. Please try refreshing the page."
+      );
     }
   };
 
   useEffect(() => {
     fetchFile();
-  }, [path]);
+  }, [files?.at(0)?.path]);
 
   return (
     <Tabs
@@ -76,18 +88,17 @@ export function TabsView({ title, path, selectedComponent }: TabsViewProps) {
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>
       </div>
-
       <TabsContent
         value="preview"
         className="flex w-full h-full items-center justify-center  p-6"
       >
-        {selectedComponent ? React.createElement(selectedComponent) : <p>Component not found</p>}
+        {React.createElement(selectedComponent)}
       </TabsContent>
       <TabsContent
         value="code"
         className="w-full h-full overflow-y-auto pb-10 pr-4"
       >
-        <CardCode path={path} fileContent={fileContent} />
+        <CardCode path={files?.at(0)?.path ?? ""} fileContent={fileContent} />
       </TabsContent>
     </Tabs>
   );
