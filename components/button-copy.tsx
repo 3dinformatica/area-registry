@@ -8,14 +8,15 @@ import { useState } from "react";
 
 interface CopyButtonProps {
   item: RegistryItem;
+  toCopy: string;
 }
 
 export default function CopyButton(props: CopyButtonProps) {
-  const { item } = props;
+  const { item, toCopy } = props;
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(item.files?.at(0)?.content ?? "");
+    navigator.clipboard.writeText(toCopy);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);

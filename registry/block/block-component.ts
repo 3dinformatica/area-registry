@@ -18,7 +18,7 @@ export const BlockComponents: RegistryItem[] = [
     name: "sidebar",
     type: "registry:block",
     title: "Sidebar",
-    description: "Sidebar component",
+    description: "A collapsible side navigation panel for organizing content and navigation links",
     files: [
       {
         type: "registry:block",
@@ -27,4 +27,18 @@ export const BlockComponents: RegistryItem[] = [
       },
     ],
   },
+  {
+    name: "combobox",
+    type: "registry:block",
+    title: "Combobox",
+    description: "A searchable dropdown component that allows selecting from a list of items with keyboard navigation and filtering capabilities",
+    dependencies: ["combobox", "popover"],
+    files: [
+      {
+        type: "registry:block",
+        path: "registry/block/combobox/combobox.tsx",
+        target: "components/area/block/combobox.tsx",
+      },
+    ]
+  }
 ];

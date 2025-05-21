@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import React from "react";
 
 
-export function Navbar() {
+export default function Navbar() {
   return (
     <div className="sticky top-0 z-50 w-full border-b backdrop-blur-sm supports-[backdrop-filter]:bg-background/40">
       <div className="flex h-14 max-w-full items-center justify-between bg-primary px-10 py-8">

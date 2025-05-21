@@ -41,13 +41,17 @@ export default function ContentView(props: ContentViewProps) {
 
     const fetchFile = async () => {
       try {
-        const res = await fetch(process.env.NODE_ENV === 'development' ? `/r/${selectedItem.name}.json` : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`);
+        const res = await fetch(
+          process.env.NODE_ENV === "development"
+            ? `/r/${selectedItem.name}.json`
+            : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`
+        );
 
         if (!res.ok) {
           console.error("Failed fetching file:", res);
           return;
         }
-        
+
         const body = await res.json();
         setFileContent(body.files?.at(0));
         console.log(JSON.stringify(body.files?.at(0), null, 2));
@@ -82,22 +86,44 @@ export default function ContentView(props: ContentViewProps) {
         <ContentSection title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
-              https://3dinformatica.github.io/area-registry/r/
-              {selectedItem.name}.json
+              {process.env.NODE_ENV === "development"
+                ? `http://localhost:3000/r/${selectedItem.name}.json`
+                : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`}
             </code>
-            <CopyButton item={selectedItem} />
+            <CopyButton
+              item={selectedItem}
+              toCopy={
+                process.env.NODE_ENV === "development"
+                  ? `http://localhost:3000/r/${selectedItem.name}.json`
+                  : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`
+              }
+            />
           </pre>
         </ContentSection>
         <ContentSection title="Destination">
-          <pre className="bg-accent/60 rounded-md flex flex-col w-fit p-4">
-            {fileContent ? fileContent.target : "Loading..."}
-          </pre>
+          <div className="flex gap-2 items-center">
+            {fileContent
+              ? fileContent.target?.split("/").map((item, index, array) => (
+                  <section key={item} className="flex gap-2 items-center">
+                    <pre className="bg-accent rounded-md px-1 py-0.5">
+                      {item}
+                    </pre>
+                    {index < array.length - 1 && (
+                      <span className="text-muted-foreground">/</span>
+                    )}
+                  </section>
+                ))
+              : "Loading..."}
+          </div>
         </ContentSection>
         <ContentSection title="Usage">
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Imports</p>
-              <CopyButton item={selectedItem} />
+              <CopyButton
+                item={selectedItem}
+                toCopy={extractImports(fileContent?.content ?? "")}
+              />
             </section>
             <code lang="tsx" className="py-2 px-4">
               {fileContent
@@ -108,7 +134,10 @@ export default function ContentView(props: ContentViewProps) {
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Content</p>
-              <CopyButton item={selectedItem} />
+              <CopyButton
+                item={selectedItem}
+                toCopy={fileContent?.content ?? ""}
+              />
             </section>
             <code className="py-2 px-4 w-full font-mono text-sm" lang="tsx">
               {fileContent ? extractJSX(fileContent.content) : "Loading..."}
