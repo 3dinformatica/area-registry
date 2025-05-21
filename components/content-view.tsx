@@ -1,8 +1,7 @@
 "use client";
 
 import { RegistryItem, RegistryItemFile } from "@/lib/schema";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { cn, extractImports, extractJSX } from "@/lib/utils";
+import { extractImports, extractJSX } from "@/lib/utils";
 import CopyButton from "./button-copy";
 import ContentSection from "./content-section";
 import { useMemo, useState, useEffect } from "react";
@@ -42,11 +41,13 @@ export default function ContentView(props: ContentViewProps) {
 
     const fetchFile = async () => {
       try {
-        const res = await fetch(`/r/${selectedItem.name}.json`);
+        const res = await fetch(process.env.NODE_ENV === 'development' ? `/r/${selectedItem.name}.json` : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`);
+
         if (!res.ok) {
           console.error("Failed fetching file:", res);
           return;
         }
+        
         const body = await res.json();
         setFileContent(body.files?.at(0));
         console.log(JSON.stringify(body.files?.at(0), null, 2));
