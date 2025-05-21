@@ -1,95 +1,67 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import registry from "@/registry.json";
-import { CardListItem } from "@/components/card-list-item";
-import { uiDynamicImports } from "@/lib/import-management";
-import { TabsView } from "@/components/tabs-view";
 import { RegistryItem, registrySchema } from "@/lib/schema";
-
+import { Folder } from "lucide-react";
+import ListGroup from "@/components/list-group";
+import ContentView from "@/components/content-view";
+import { Accordion } from "@/components/ui/accordion";
 
 export default function Home() {
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<number>(0);
-  const [SelectedComponent, setSelectedComponent] =
-    useState<React.ComponentType>();
+  const [selectedItem, setSelectedItem] = useState<RegistryItem | null>(null);
 
-  const validatedRegistry = registrySchema.parse(registry);
-  const registryItems: RegistryItem[] = validatedRegistry.items
-    .filter((item): item is RegistryItem => item.type === "registry:ui")
-    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+  const uiItems: RegistryItem[] = useMemo(() => {
+    return registry.items
+      .filter((item) => item.type === "registry:ui")
+      .filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+      .sort((a, b) => a.title.localeCompare(b.title)) as RegistryItem[];
+  }, [search]);
 
-  const fetchComponent = () => {
-    if (registryItems[selected]?.files?.[0]?.path) {
-      const componentPath = registryItems.at(selected)?.files?.[0]?.path ?? "";
-      const Component = uiDynamicImports[componentPath];
-
-      console.log('Component:', Component);
-      console.log('componentPath:', componentPath);
-
-      if (Component) {
-        setSelectedComponent(() => Component);
-      } else {
-        console.error("Component not found");
-        setSelectedComponent(undefined);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchComponent();
-  }, [selected, registryItems]);
+  const blockItems: RegistryItem[] = useMemo(() => {
+    return registry.items
+      .filter((item) => item.type === "registry:block")
+      .filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+      .sort((a, b) => a.title.localeCompare(b.title)) as RegistryItem[];
+  }, [search]);
 
   return (
-    <div className="flex flex-col h-[98dvh] p-6 gap-6 bg-background overflow-hidden">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">
-          3D Informatica UI Registry
-        </h1>
-        <p className="text-muted-foreground">
-          A collection of reusable React components built with shadcn/ui,
-          designed to help developers quickly implement common UI patterns and
-          features.
+    <main className="h-screen w-screen flex flex-col overflow-hidden">
+      <header className="flex flex-col h-fit w-full items-start p-6">
+        <h1 className="text-2xl font-bold">3D Registry</h1>
+        <p className="text-foreground">
+          A collection of 3D components for your projects
         </p>
       </header>
-      <main className="flex flex-row gap-10 h-full pb-10 overflow-hidden">
-        <div key={"component-list"} className="flex flex-col gap-2 w-[16%]">
+      <div className="flex h-full w-full gap-10">
+        <div className="w-1/5 h-full px-4 py-2 gap-4 flex flex-col">
           <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search for a component..."
-            className="w-full rounded-sm border-input bg-accent p-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder="Search for components..."
+            className="bg-accent w-full p-1.5 rounded-sm"
           />
-          <section className="flex flex-col gap-2 py-2">
-            {registryItems?.length > 0 ? (
-              registryItems.map((item, index) => (
-                <CardListItem
-                  key={index}
-                  item={item}
-                  selected={selected === index}
-                  onSelect={() => setSelected(index)}
-                />
-              ))
-            ) : (
-              <div className="flex flex-col gap-1.5 items-center py-4">
-                <p className="text-muted-foreground">No results found</p>
-              </div>
-            )}
-          </section>
-        </div>
-        <div className="flex flex-col gap-2 w-[84%] h-full">
-          {registryItems.at(selected)?.files?.[0]?.path && (
-            <TabsView
-              key={"component-view"}
-              title={registryItems.at(selected)?.title ?? ""}
-              path={registryItems.at(selected)?.files?.[0]?.path ?? ""}
-              selectedComponent={SelectedComponent}
+          <Accordion type="multiple" className="flex flex-col gap-0">
+            <ListGroup
+              iconName="Folder"
+              title="Category: UI"
+              items={uiItems}
+              selectedItem={selectedItem}
+              onSelectedItem={setSelectedItem}
             />
-          )}
+            <ListGroup
+              iconName="Folder"
+              title="Category: Block"
+              items={blockItems}
+              selectedItem={selectedItem}
+              onSelectedItem={setSelectedItem}
+            />
+          </Accordion>
         </div>
-      </main>
-    </div>
+        <div className="w-[50%] h-full flex flex-col">
+          <ContentView selectedItem={selectedItem} />
+        </div>
+      </div>
+    </main>
   );
 }

@@ -10,28 +10,19 @@ interface CardListItemProps {
 export function CardListItem({ item, selected, onSelect }: CardListItemProps) {
   return (
     <div
-      onClick={() => onSelect()}
-      className={`w-full flex items-center gap-2 hover:cursor-pointer text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
-        selected ? "bg-card border-primary" : ""
-      }`}
+      className={cn(
+        "flex items-center py-0.5 gap-2 hover:underline hover:cursor-pointer w-fit text-foreground font-medium",
+        selected && "text-primary font-medium" 
+      )}
+      onClick={onSelect}
     >
-      <section className="flex flex-row gap-2 items-center hover:underline">
-        <div
-          className={cn(
-            "size-2 rounded-full mr-0 p-0",
-            selected ? "bg-blue-500" : "bg-transparent"
-          )}
-        />
-        <h2
-          className={cn(
-            "text-base font-medium",
-            selected ? "text-primary" : "text-muted-foreground"
-          )}
-        >
-          {item.title}
-        </h2>
-      </section>
-      <p className="text-sm text-muted-foreground">{item.name}</p>
+      <div
+        className={cn(
+          "size-1.5 bg-primary ml-2 mr-0",
+          selected ? "bg-primary" : "bg-transparent"
+        )}
+      />
+      <p>{item.title}</p>
     </div>
   );
 }
