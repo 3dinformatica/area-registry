@@ -34,7 +34,7 @@ export const uiDynamicImports: ComponentImportMap = {
 // Pre-define dynamic imports for block components
 export const blockDynamicImports: ComponentImportMap = {
   "registry/block/navbar/navbar.tsx": dynamic(
-    () => import("@/registry/block/navbar/navbar").then((mod) => mod.default)
+    () => import("@/registry/block/navbar/navbar").then((mod) => mod.Navbar)
   ),
   "registry/block/combobox/combobox.tsx": dynamic(
     () => import("@/registry/block/combobox/combobox").then((mod) => mod.default)

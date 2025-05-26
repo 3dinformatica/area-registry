@@ -5,13 +5,19 @@ export const BlockComponents: RegistryItem[] = [
     name: "navbar",
     type: "registry:block",
     title: "Navbar",
-    description: "Navbar component",
+    description: "A responsive navigation bar component with customizable icon and content sections",
+    dependencies: ["next", "react", "react-dom"],
     files: [
       {
         type: "registry:block",
         path: "registry/block/navbar/navbar.tsx",
         target: "components/area/block/navbar.tsx",
       },
+      {
+        type: "registry:ui",
+        path: "components/navbar-content.tsx",
+        target: "components/area/ui/navbar-content.tsx",
+      }
     ],
   },
   {

@@ -17,15 +17,14 @@ import {
 import { cn } from "@/lib/utils";
 
 export type PersistableEntity = {
+  id: string;
   createdAt: Date;
   updatedAt: Date;
-  id?: string | null | undefined;
-  extra?: Record<string, string> | null | undefined;
   disabledAt?: Date | null | undefined;
+  extra?: Record<string, string> | null | undefined;
 };
 
 /* DEFAULT VALUES FOR EXAMPLE PURPOSES */
-
 interface MockOption extends PersistableEntity {
   name: string;
   description: string;
@@ -34,28 +33,28 @@ interface MockOption extends PersistableEntity {
 const defaultOptions: MockOption[] = [
   {
     id: "1",
-    name: "Option One",
+    name: "Option 1",
     description: "This is the first option",
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01"),
   },
   {
     id: "2",
-    name: "Option Two",
+    name: "Option 2",
     description: "This is the second option",
     createdAt: new Date("2024-01-02"),
     updatedAt: new Date("2024-01-02"),
   },
   {
     id: "3",
-    name: "Option Three",
+    name: "Option 3",
     description: "This is the third option",
     createdAt: new Date("2024-01-03"),
     updatedAt: new Date("2024-01-03"),
   },
   {
     id: "4",
-    name: "Option Four",
+    name: "Option 4",
     description: "This is the fourth option",
     createdAt: new Date("2024-01-04"),
     updatedAt: new Date("2024-01-04"),
@@ -63,7 +62,6 @@ const defaultOptions: MockOption[] = [
 ];
 
 /* END DEFAULT VALUES FOR EXAMPLE PURPOSES */
-
 interface Props<T extends PersistableEntity> {
   /** The options to display in the combobox */
   options?: T[];
@@ -71,14 +69,16 @@ interface Props<T extends PersistableEntity> {
   dataKey?: keyof T;
   /** The currently selected value */
   value?: string;
+  /** The default value to display in the combobox */
+  defaultValue?: string;
   /** Whether the combobox is disabled */
   disabled?: boolean;
   /** Whether the combobox has an error */
   error?: boolean;
   /** Placeholder text for the search input */
   searchPlaceholder?: string;
-  /** Optional CSS class for styling the label */
-  labelStyle?: string;
+  /** Optional CSS class for styling the combobox */
+  className?: string;
   /** Callback fired when an item is selected */
   onSelect: (item: T) => void;
 }
@@ -87,11 +87,12 @@ export default function Combobox<T extends PersistableEntity>(props: Props<T>) {
   const {
     options = defaultOptions as unknown as T[],
     dataKey = "name" as keyof T,
-    value,
+    value = "1",
+    defaultValue = "1",
     disabled,
     searchPlaceholder = "Search here...",
     error,
-    labelStyle,
+    className,
     onSelect,
   } = props;
   const [open, setOpen] = useState(false);
@@ -121,6 +122,7 @@ export default function Combobox<T extends PersistableEntity>(props: Props<T>) {
           disabled={disabled}
           className={cn(
             "h-9 w-[240px] min-w-[120px] max-w-full justify-between border bg-background py-0 text-sm font-normal text-muted-foreground disabled:cursor-not-allowed disabled:opacity-100",
+            className,
             value && "font-semibold text-foreground",
             error && "border-destructive",
             disabled && "text-muted-foreground/50"
@@ -140,7 +142,14 @@ export default function Combobox<T extends PersistableEntity>(props: Props<T>) {
             <CommandList>
               <CommandGroup>
                 {filteredOptions.map((item) => (
-                  <CommandItem key={item.id}>
+                  <CommandItem
+                    key={item.id}
+                    onSelect={() => {
+                      console.log(item);
+                      onSelect;
+                      setOpen(false);
+                    }}
+                  >
                     {String(item[dataKey])}
                   </CommandItem>
                 ))}
