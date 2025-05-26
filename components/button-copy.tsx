@@ -23,6 +23,8 @@ export default function CopyButton(props: CopyButtonProps) {
     }, 2000);
   };
 
+  console.log(item);
+
   return (
     <Button
       variant="ghost"

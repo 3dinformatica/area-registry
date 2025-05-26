@@ -7,7 +7,6 @@ import { RegistryItem } from "@/lib/schema";
 import ListGroup from "@/components/list-group";
 import ContentView from "@/components/content-view";
 import { Accordion } from "@/components/ui/accordion";
-import * as LucideIcons from "lucide-react";
 import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
