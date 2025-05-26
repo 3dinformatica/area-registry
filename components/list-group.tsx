@@ -16,6 +16,8 @@ export default function ListGroup(props: ListGroupProps) {
   const { iconName, title, items, selectedItem, onSelectedItem } = props;
   const Icon = LucideIcons[iconName] as LucideIcon;
 
+  if (items.length === 0) return null;
+
   return (
     <AccordionItem value={title} className="flex flex-col gap-1 w-full h-fit items-start justify-start border-none">
       <AccordionTrigger className="py-1 cursor-pointer">

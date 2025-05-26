@@ -3,13 +3,24 @@
   "name": "navbar",
   "type": "registry:block",
   "title": "Navbar",
-  "description": "Navbar component",
+  "description": "A responsive navigation bar component with customizable icon and content sections",
+  "dependencies": [
+    "next",
+    "react",
+    "react-dom"
+  ],
   "files": [
     {
       "path": "registry/block/navbar/navbar.tsx",
-      "content": "import Link from \"next/link\";\nimport Image from \"next/image\";\nimport { Plus } from \"lucide-react\";\nimport React from \"react\";\n\n\nexport function Navbar() {\n  return (\n    <div className=\"sticky top-0 z-50 w-full border-b backdrop-blur-sm supports-[backdrop-filter]:bg-background/40\">\n      <div className=\"flex h-14 max-w-full items-center justify-between bg-primary px-10 py-8\">\n        <section className=\"flex items-center gap-4\">\n          <Link href={\"/\"}>\n            <Image\n              src=\"/logo.png\"\n              alt=\"AReA Logo\"\n              width={32}\n              height={32}\n              className=\"size-10 rounded-full bg-white/80 p-1.5 transition-all duration-300 hover:scale-110\"\n            />\n          </Link>\n          <Plus size={24} />\n        </section>\n        <section className=\"flex items-center gap-4\">\n          <p>Company switcher</p>\n          <div className=\"flex items-center gap-2\">\n            <p>Avatar button profile</p>\n          </div>\n        </section>\n      </div>\n    </div>\n  );\n}\n",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { NavbarContent, NavbarIcon, NavbarOptions } from \"@/components/navbar-content\";\n\ninterface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {\n  iconSrc: string;\n  iconHref: string;\n  leading?: React.ReactNode[];\n  trailing?: React.ReactNode[];\n}\n\nexport function Navbar({\n  iconSrc = \"/3d-logo.png\",\n  iconHref = \"/\",\n  leading,\n  trailing,\n  ...props \n}: NavbarProps) {\n  return (\n    <NavbarContent {...props}>\n      <NavbarIcon src={iconSrc} href={iconHref} />\n      <NavbarOptions startPoint=\"left\">{leading}</NavbarOptions>\n      <NavbarOptions startPoint=\"right\">{trailing}</NavbarOptions>\n    </NavbarContent>\n  );\n}\n",
       "type": "registry:block",
       "target": "components/area/block/navbar.tsx"
+    },
+    {
+      "path": "components/navbar-content.tsx",
+      "content": "\"use client\";\n\nimport Link from \"next/link\";\nimport Image from \"next/image\";\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface NavbarOptionsProps extends React.HTMLAttributes<HTMLDivElement> {\n  startPoint?: \"left\" | \"right\";\n  children?: React.ReactNode[];\n}\n\nfunction NavbarOptions(props: NavbarOptionsProps) {\n  const { children, startPoint = \"left\", ...rest } = props;\n  return <div className={cn('flex flex-1 w-10 h-10 bg-foreground/10 items-center gap-1.5', rest.className, startPoint === \"left\" ? \"justify-start\" : \"justify-end\")} {...rest}>{children}</div>;\n}\nNavbarOptions.displayName = \"NavbarOptions\";\n\ninterface NavbarIconProps extends React.HTMLAttributes<HTMLAnchorElement> {\n  src: string;\n  href: string;\n}\n\nfunction NavbarIcon({ src, href, ...props }: NavbarIconProps) {\n  return (\n    <Link href={href} className=\"aspect-square size-10\" {...props}>\n      <Image\n        src={src}\n        alt=\"AReA Logo\"\n        width={32}\n        height={32}\n        className=\"size-10 rounded-full bg-white/80 p-1.5 transition-all duration-300 hover:scale-110\"\n      />\n    </Link>\n  );\n}\nNavbarIcon.displayName = \"NavbarIcon\";\n\ninterface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode;\n}\n\nfunction NavbarContent(props: NavbarProps) {\n  const { children, ...rest } = props;\n\n  return (\n    <nav className=\"sticky top-0 z-50 w-full h-fit\">\n      <div className=\"flex h-fit max-w-full items-center justify-start bg-primary px-6 py-3 gap-10\" {...rest}>\n        {children}\n      </div>\n    </nav>\n  );\n}\n\nNavbarContent.Icon = NavbarIcon;\nNavbarContent.Options = NavbarOptions;\n\nexport { NavbarContent, NavbarIcon, NavbarOptions };",
+      "type": "registry:ui",
+      "target": "components/area/ui/navbar-content.tsx"
     }
   ]
 }
