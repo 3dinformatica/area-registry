@@ -1,6 +1,6 @@
 import { RegistryItem } from "../../lib/schema";
 
-export const BlockComponents: RegistryItem[] = [
+export const BlockItems: RegistryItem[] = [
   {
     name: "navbar",
     type: "registry:block",

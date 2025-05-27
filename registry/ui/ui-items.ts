@@ -1,7 +1,7 @@
 
 import { RegistryItem } from "../../lib/schema";
 
-export const UiComponents: RegistryItem[] = [
+export const UiItems: RegistryItem[] = [
   {
     name: "tooltip-button",
     type: "registry:ui",

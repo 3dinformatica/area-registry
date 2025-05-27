@@ -1,13 +1,12 @@
-import { Registry, RegistryItem } from "../lib/schema";
-import { UiComponents } from "./ui/ui-component";
-import { BlockComponents } from "./block/block-component";
-
-
+import { Registry } from "../lib/schema";
+import { UiItems } from "./ui/ui-items";
+import { BlockItems } from "./block/block-items";
+import { HookItems } from "./hooks/hook-items";
 
 const registry: Registry = {
   name: "3D informatica",
   homepage: "https://www.3di.it/",
-  items: [...UiComponents, ...BlockComponents]
+  items: [...UiItems, ...BlockItems, ...HookItems]
 };
 
 export default registry; 

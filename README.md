@@ -124,7 +124,7 @@ This process ensures that your `registry.json` file always stays in sync with yo
 To use components directly from your local registry make sure that your registry project is up and running and execute this command:
 
     ```bash
-      pnpm dlx shadcn@latest add https://localhost:3000/<component.json>
+      pnpm dlx shadcn@latest add http://localhost:3000/r/<component.json>
     ```
 
 ### Remote Usage
