@@ -65,6 +65,11 @@ export default function ComponentContentView(props: ContentViewProps) {
 
   if (!registryItem) return null;
 
+  const installationCmd = `pnpm dlx shadcn@latest add ${process.env.NODE_ENV === "development"
+                ? `http://localhost:3000/r/${registryItem.name}.json`
+                : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
+              }`
+
   return (
     <div className="flex flex-col gap-4 pb-20 items-start h-fit overflow-y-auto flex-1">
       <section className="flex flex-col gap-0 w-full h-fit">
@@ -80,17 +85,11 @@ export default function ComponentContentView(props: ContentViewProps) {
         <ContentSection title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
-              {process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/r/${registryItem.name}.json`
-                : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`}
+              {installationCmd}
             </code>
             <CopyButton
               item={registryItem}
-              toCopy={
-                process.env.NODE_ENV === "development"
-                  ? `http://localhost:3000/r/${registryItem.name}.json`
-                  : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
-              }
+              toCopy={installationCmd}
             />
           </pre>
         </ContentSection>

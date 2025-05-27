@@ -43,6 +43,12 @@ export default function HooksContentView(props: HooksContentViewProps) {
 
   if (!registryItem) return null;
 
+  const installationCmd = `pnpm dlx shadcn@latest add ${
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000/r/${registryItem.name}.json`
+      : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
+  }`;
+
   return (
     <div className="flex flex-col gap-6 pb-20 items-start h-fit overflow-y-auto flex-1">
       <h1>{registryItem.title}</h1>
@@ -53,19 +59,9 @@ export default function HooksContentView(props: HooksContentViewProps) {
         <ContentSection title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
-              {`pnpm dlx shadcn@latest add ${process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/r/${registryItem.name}.json`
-                : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
-              }`}
+              {installationCmd}
             </code>
-            <CopyButton
-              item={registryItem}
-              toCopy={
-                process.env.NODE_ENV === "development"
-                  ? `http://localhost:3000/r/${registryItem.name}.json`
-                  : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
-              }
-            />
+            <CopyButton item={registryItem} toCopy={installationCmd} />
           </pre>
         </ContentSection>
         <ContentSection title="Destination">
