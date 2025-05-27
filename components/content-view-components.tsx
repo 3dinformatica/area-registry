@@ -65,10 +65,11 @@ export default function ComponentContentView(props: ContentViewProps) {
 
   if (!registryItem) return null;
 
-  const installationCmd = `pnpm dlx shadcn@latest add ${process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/r/${registryItem.name}.json`
-                : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
-              }`
+  const installationCmd = `pnpm dlx shadcn@latest add ${
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000/r/${registryItem.name}.json`
+      : `https://3dinformatica.github.io/area-registry/r/${registryItem.name}.json`
+  }`;
 
   return (
     <div className="flex flex-col gap-4 pb-20 items-start h-fit overflow-y-auto flex-1">
@@ -87,10 +88,7 @@ export default function ComponentContentView(props: ContentViewProps) {
             <code lang="bash" className="w-fit overflow-x-auto">
               {installationCmd}
             </code>
-            <CopyButton
-              item={registryItem}
-              toCopy={installationCmd}
-            />
+            <CopyButton toCopy={installationCmd} />
           </pre>
         </ContentSection>
         <ContentSection title="Destination">
@@ -113,10 +111,7 @@ export default function ComponentContentView(props: ContentViewProps) {
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Imports</p>
-              <CopyButton
-                item={registryItem}
-                toCopy={extractImports(fileContent?.content ?? "")}
-              />
+              <CopyButton toCopy={extractImports(fileContent?.content ?? "")} />
             </section>
             <code lang="tsx" className="py-2 px-4">
               {fileContent
@@ -127,10 +122,7 @@ export default function ComponentContentView(props: ContentViewProps) {
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Content</p>
-              <CopyButton
-                item={registryItem}
-                toCopy={fileContent?.content ?? ""}
-              />
+              <CopyButton toCopy={fileContent?.content ?? ""} />
             </section>
             <code className="py-2 px-4 w-full font-mono text-sm" lang="tsx">
               {fileContent ? extractJSX(fileContent.content) : "Loading..."}

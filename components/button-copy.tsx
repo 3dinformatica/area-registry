@@ -2,18 +2,18 @@
 
 import { Check, Copy } from "lucide-react";
 import { Button } from "./ui/button";
-import { RegistryItem } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useDebounce } from "@/registry/hooks/debounce/debounce";
 
 interface CopyButtonProps {
-  item: RegistryItem;
+
   toCopy: string;
 }
 
 export default function CopyButton(props: CopyButtonProps) {
-  const { item, toCopy } = props;
+  const { toCopy } = props;
+
   const [copied, setCopied] = useState(false);
   const debouncedCopied = useDebounce(copied, 2000);
 

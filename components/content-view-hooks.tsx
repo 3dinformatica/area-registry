@@ -61,7 +61,7 @@ export default function HooksContentView(props: HooksContentViewProps) {
             <code lang="bash" className="w-fit overflow-x-auto">
               {installationCmd}
             </code>
-            <CopyButton item={registryItem} toCopy={installationCmd} />
+            <CopyButton toCopy={installationCmd} />
           </pre>
         </ContentSection>
         <ContentSection title="Destination">
