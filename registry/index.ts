@@ -4,8 +4,8 @@ import { BlockItems } from "./block/block-items";
 import { HookItems } from "./hooks/hook-items";
 
 const registry: Registry = {
-  name: "3D informatica",
-  homepage: "https://www.3di.it/",
+  name: "3D Registry",
+  homepage: "https://3dinformatica.github.io/registry/",
   items: [...UiItems, ...BlockItems, ...HookItems]
 };
 

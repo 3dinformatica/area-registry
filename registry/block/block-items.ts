@@ -5,7 +5,7 @@ export const BlockItems: RegistryItem[] = [
     name: "navbar",
     type: "registry:block",
     title: "Navbar",
-    description: "A responsive navigation bar component with customizable icon and content sections",
+    description: "A responsive navigation bar component with customizable icon and content sections. Useful for providing a navigation bar to the user.",
     dependencies: ["next", "react", "react-dom"],
     files: [
       {
@@ -24,7 +24,7 @@ export const BlockItems: RegistryItem[] = [
     name: "sidebar",
     type: "registry:block",
     title: "Sidebar",
-    description: "A collapsible side navigation panel for organizing content and navigation links",
+    description: "A collapsible side navigation panel for organizing content and navigation links. Useful for providing a sidebar to the user.",
     files: [
       {
         type: "registry:block",
@@ -37,7 +37,7 @@ export const BlockItems: RegistryItem[] = [
     name: "combobox",
     type: "registry:block",
     title: "Combobox",
-    description: "A searchable dropdown component that allows selecting from a list of items with keyboard navigation and filtering capabilities",
+    description: "A searchable dropdown component that allows selecting from a list of items with keyboard navigation and filtering capabilities. Useful for providing a combobox to the user.",
     dependencies: ["combobox", "popover"],
     files: [
       {
