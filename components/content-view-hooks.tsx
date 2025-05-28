@@ -52,11 +52,11 @@ export default function HooksContentView(props: HooksContentViewProps) {
   return (
     <div className="flex flex-col gap-6 pb-20 items-start h-fit overflow-y-auto flex-1">
       <h1>{registryItem.title}</h1>
-      <section className="flex flex-col gap-10 w-full h-fit mb-20">
-        <ContentSection title="Description">
+      <section className="flex flex-col gap-10 w-full h-fit mb-[70%]">
+        <ContentSection id="description" title="Description">
           <p>{registryItem.description}</p>
         </ContentSection>
-        <ContentSection title="Installation">
+        <ContentSection id="installation" title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
               {installationCmd}
@@ -64,7 +64,7 @@ export default function HooksContentView(props: HooksContentViewProps) {
             <CopyButton toCopy={installationCmd} />
           </pre>
         </ContentSection>
-        <ContentSection title="Destination">
+        <ContentSection id="destination" title="Destination">
           <div className="flex gap-2 items-center">
             {fileContent
               ? fileContent.target?.split("/").map((item, index, array) => (

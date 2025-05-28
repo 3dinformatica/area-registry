@@ -72,18 +72,18 @@ export default function ComponentContentView(props: ContentViewProps) {
   }`;
 
   return (
-    <div className="flex flex-col gap-4 pb-20 items-start h-fit overflow-y-auto flex-1">
-      <section className="flex flex-col gap-0 w-full h-fit">
-        <h1>{registryItem.title}</h1>
-        <p>{registryItem.description}</p>
-      </section>
-      <section className="flex flex-col gap-10 w-full h-fit mb-20">
-        <ContentSection title="Preview">
+    <div className="flex flex-col gap-6 pb-20 items-start h-fit overflow-y-auto flex-1">
+      <h1>{registryItem.title}</h1>
+      <section className="flex flex-col gap-10 w-full h-fit mb-[60%]">
+        <ContentSection id="description" title="Description">
+          <p>{registryItem.description}</p>
+        </ContentSection>
+        <ContentSection id="preview" title="Preview">
           <div className="flex w-full h-full items-center justify-center border-dashed border rounded-sm p-10">
             {component}
           </div>
         </ContentSection>
-        <ContentSection title="Installation">
+        <ContentSection id="installation" title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
               {installationCmd}
@@ -91,7 +91,7 @@ export default function ComponentContentView(props: ContentViewProps) {
             <CopyButton toCopy={installationCmd} />
           </pre>
         </ContentSection>
-        <ContentSection title="Destination">
+        <ContentSection id="destination" title="Destination">
           <div className="flex gap-2 items-center">
             {fileContent
               ? fileContent.target?.split("/").map((item, index, array) => (
@@ -107,7 +107,7 @@ export default function ComponentContentView(props: ContentViewProps) {
               : "Loading..."}
           </div>
         </ContentSection>
-        <ContentSection title="Usage">
+        <ContentSection id="usage" title="Usage">
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Imports</p>

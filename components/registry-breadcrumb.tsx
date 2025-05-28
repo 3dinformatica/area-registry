@@ -48,7 +48,7 @@ export default function RegistryBreadcrumb() {
       <BreadcrumbList>
         <BreadcrumbItem className="p-0 m-0">
           <BreadcrumbLink href="/" className={linkStyle}>
-            Home
+            Dashboard
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="m-0" />
