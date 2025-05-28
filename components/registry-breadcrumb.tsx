@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -29,8 +30,10 @@ export default function RegistryBreadcrumb() {
       <section key={href}  className="flex items-center gap-0">
         {index < path.length - 1 ? (
           <BreadcrumbItem>
-            <BreadcrumbLink href={href} className={linkStyle}>
-              {item}
+            <BreadcrumbLink href={href} className={linkStyle} asChild>
+              <Link href={href} className={linkStyle}>
+                {item}
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         ) : (
@@ -47,8 +50,8 @@ export default function RegistryBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="p-0 m-0">
-          <BreadcrumbLink href="/" className={linkStyle}>
-            Dashboard
+          <BreadcrumbLink href="/" className={linkStyle} asChild>
+            <Link href="/">Dashboard</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="m-0" />
