@@ -7,16 +7,16 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordio
 interface ListGroupProps {
   iconName: keyof typeof LucideIcons;
   title: string;
-  items: RegistryItem[];
+  options: RegistryItem[];
   selectedItem: RegistryItem | null;
   onSelectedItem: (item: RegistryItem) => void;
 }
 
 export default function ListGroup(props: ListGroupProps) {
-  const { iconName, title, items, selectedItem, onSelectedItem } = props;
+  const { iconName, title, options, selectedItem, onSelectedItem } = props;
   const Icon = LucideIcons[iconName] as LucideIcon;
 
-  if (items.length === 0) return null;
+  if (options.length === 0) return null;
 
   return (
     <AccordionItem value={title} className="flex flex-col gap-1 w-full h-fit items-start justify-start border-none">
@@ -27,7 +27,7 @@ export default function ListGroup(props: ListGroupProps) {
         </div>
       </AccordionTrigger>
       <AccordionContent className="flex flex-col gap-0">
-        {items.map((item) => (
+        {options.map((item) => (
           <CardListItem
             key={item.name}
             item={item}

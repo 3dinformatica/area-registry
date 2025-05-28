@@ -3,23 +3,23 @@
 import { RegistryItem, RegistryItemFile } from "@/lib/schema";
 import { extractImports, extractJSX } from "@/lib/utils";
 import CopyButton from "./button-copy";
-import ContentSection from "./content-section";
 import { useMemo, useState, useEffect } from "react";
 import React from "react";
 import { uiDynamicImports, blockDynamicImports } from "@/lib/import-management";
+import ContentSection from "./content-view-section";
 
 interface ContentViewProps {
-  selectedItem: RegistryItem | null;
+  registryItem: RegistryItem | null;
 }
 
-export default function ContentView(props: ContentViewProps) {
-  const { selectedItem } = props;
+export default function ComponentContentView(props: ContentViewProps) {
+  const { registryItem } = props;
   const [fileContent, setFileContent] = useState<RegistryItemFile | null>(null);
 
   const component = useMemo(() => {
-    if (!selectedItem) return null;
+    if (!registryItem) return null;
 
-    const path = selectedItem.files?.find((file) => {
+    const path = registryItem.files?.find((file) => {
       return file.path.endsWith(".tsx");
     })?.path;
 
@@ -27,24 +27,24 @@ export default function ContentView(props: ContentViewProps) {
 
     // Get the component based on the type
     const Component =
-      selectedItem.type === "registry:ui"
+      registryItem.type === "registry:ui"
         ? uiDynamicImports[path]
         : blockDynamicImports[path];
 
     if (!Component) return null;
 
     return <Component />;
-  }, [selectedItem]);
+  }, [registryItem]);
 
   useEffect(() => {
-    if (!selectedItem) return;
+    if (!registryItem) return;
 
     const fetchFile = async () => {
       try {
         const res = await fetch(
           process.env.NODE_ENV === "development"
-            ? `/r/${selectedItem.name}.json`
-            : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`
+            ? `/r/${registryItem.name}.json`
+            : `https://3dinformatica.github.io/registry/r/${registryItem.name}.json`
         );
 
         if (!res.ok) {
@@ -61,46 +61,37 @@ export default function ContentView(props: ContentViewProps) {
     };
 
     fetchFile();
-  }, [selectedItem]);
+  }, [registryItem]);
 
-  if (!selectedItem) return null;
+  if (!registryItem) return null;
+
+  const installationCmd = `pnpm dlx shadcn@latest add ${
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000/r/${registryItem.name}.json`
+      : `https://3dinformatica.github.io/registry/r/${registryItem.name}.json`
+  }`;
 
   return (
-    <div className="flex flex-col gap-4 pb-20 items-start h-fit overflow-y-auto flex-1">
-      <section className="flex flex-col gap-0 w-full h-fit">
-        <h1 className="text-3xl font-semibold">{selectedItem.title}</h1>
-        <p>{selectedItem.description}</p>
-      </section>
-      <section className="flex flex-col gap-10 w-full h-fit mb-20">
-        <ContentSection title="Preview">
-          {component ? (
-            <div className="flex w-full h-full items-center justify-center border-dashed border rounded-sm p-10">
-              {component}
-            </div>
-          ) : (
-            <div className="flex w-full h-fit p-10 text-muted-foreground bg-accent items-center justify-center rounded-sm">
-              Preview not available
-            </div>
-          )}
+    <div className="flex flex-col gap-6 pb-20 items-start h-fit overflow-y-auto flex-1">
+      <h1>{registryItem.title}</h1>
+      <section className="flex flex-col gap-10 w-full h-fit mb-[60%]">
+        <ContentSection id="description" title="Description">
+          <p>{registryItem.description}</p>
         </ContentSection>
-        <ContentSection title="Installation">
+        <ContentSection id="preview" title="Preview">
+          <div className="flex w-full h-full items-center justify-center border-dashed border rounded-sm p-10">
+            {component}
+          </div>
+        </ContentSection>
+        <ContentSection id="installation" title="Installation">
           <pre className="bg-accent/60 rounded-md flex w-fit max-w-full p-4 gap-4 items-center">
             <code lang="bash" className="w-fit overflow-x-auto">
-              {process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/r/${selectedItem.name}.json`
-                : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`}
+              {installationCmd}
             </code>
-            <CopyButton
-              item={selectedItem}
-              toCopy={
-                process.env.NODE_ENV === "development"
-                  ? `http://localhost:3000/r/${selectedItem.name}.json`
-                  : `https://3dinformatica.github.io/area-registry/r/${selectedItem.name}.json`
-              }
-            />
+            <CopyButton toCopy={installationCmd} />
           </pre>
         </ContentSection>
-        <ContentSection title="Destination">
+        <ContentSection id="destination" title="Destination">
           <div className="flex gap-2 items-center">
             {fileContent
               ? fileContent.target?.split("/").map((item, index, array) => (
@@ -116,14 +107,11 @@ export default function ContentView(props: ContentViewProps) {
               : "Loading..."}
           </div>
         </ContentSection>
-        <ContentSection title="Usage">
+        <ContentSection id="usage" title="Usage">
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Imports</p>
-              <CopyButton
-                item={selectedItem}
-                toCopy={extractImports(fileContent?.content ?? "")}
-              />
+              <CopyButton toCopy={extractImports(fileContent?.content ?? "")} />
             </section>
             <code lang="tsx" className="py-2 px-4">
               {fileContent
@@ -134,10 +122,7 @@ export default function ContentView(props: ContentViewProps) {
           <pre className="bg-accent/60 rounded-md flex flex-col w-fit max-w-full">
             <section className="flex gap-2 items-center justify-between border-b py-2 px-4">
               <p className="text-sm text-muted-foreground">Content</p>
-              <CopyButton
-                item={selectedItem}
-                toCopy={fileContent?.content ?? ""}
-              />
+              <CopyButton toCopy={fileContent?.content ?? ""} />
             </section>
             <code className="py-2 px-4 w-full font-mono text-sm" lang="tsx">
               {fileContent ? extractJSX(fileContent.content) : "Loading..."}

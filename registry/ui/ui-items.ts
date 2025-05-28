@@ -1,13 +1,13 @@
 
 import { RegistryItem } from "../../lib/schema";
 
-export const UiComponents: RegistryItem[] = [
+export const UiItems: RegistryItem[] = [
   {
     name: "tooltip-button",
     type: "registry:ui",
     title: "Tooltip Button",
     dependencies: ["button", "tooltip"],
-    description: "Tooltip Button component",
+    description: "A button component with a tooltip that appears on hover, combining the functionality of a button with additional explanatory text that helps users understand its purpose. Useful for providing context without cluttering the interface.",
     files: [
       {
         type: "registry:ui",
@@ -33,7 +33,7 @@ export const UiComponents: RegistryItem[] = [
     name: "select",
     type: "registry:ui",
     title: "Select",
-    description: "Select component",
+    description: "A select component that allows users to choose an option from a list of options. Useful for providing a list of options to the user.",
     files: [
       {
         type: "registry:ui",

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "debounce",
+  "type": "registry:hook",
+  "title": "Debounce",
+  "description": "A React hook that delays updating a value until a specified delay time has passed since the last change. This is useful for preventing excessive updates when a value changes rapidly, such as handling search input or window resize events. The hook returns the debounced value which only updates after the user stops changing the input for the delay period.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/hooks/debounce/debounce.ts",
+      "content": "import { useState } from \"react\";\nimport { useEffect } from \"react\";\n\n// Custom hook for debouncing\nexport function useDebounce<T>(value: T, debounceTime?: number): T {\n  const delay = debounceTime ?? 350;\n  const [debouncedValue, setDebouncedValue] = useState<T>(value);\n\n  useEffect(() => {\n    const timer = setTimeout(() => {\n      setDebouncedValue(value);\n    }, delay);\n\n    return () => {\n      clearTimeout(timer);\n    };\n  }, [value, delay]);\n\n  return debouncedValue;\n}\n",
+      "type": "registry:hook",
+      "target": "components/area/hooks/debounce.ts"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import RegistryNavbar from "@/components/regstry-navbar";
+import { appRoutes } from "@/lib/routes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden flex flex-col items-center`}
       >
-        {children}
+        <RegistryNavbar options={appRoutes} />
+        <div className="p-6 container w-screen h-[calc(100vh-64px)]">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-# Area Registry
+# Registry
 
 A simple way to share and reuse React components across your projects.
 
@@ -18,7 +18,7 @@ A simple way to share and reuse React components across your projects.
 ## What's Inside
 
 ```
-area-registry/
+registry/
 ├─ public
 |   └─ r                        # Ready-to-use components
 ├─ registry/
@@ -124,7 +124,7 @@ This process ensures that your `registry.json` file always stays in sync with yo
 To use components directly from your local registry make sure that your registry project is up and running and execute this command:
 
     ```bash
-      pnpm dlx shadcn@latest add https://localhost:3000/<component.json>
+      pnpm dlx shadcn@latest add http://localhost:3000/r/<component.json>
     ```
 
 ### Remote Usage
@@ -132,7 +132,7 @@ To use components directly from your local registry make sure that your registry
 To use a register's component inside another project you need to execute the follow command. This will download the source code of the specified component.
 
 ```bash
-   pnpm dlx shadcn@latest add https://3dinformatica.github.io/area-registry/r/<component.json>
+   pnpm dlx shadcn@latest add https://3dinformatica.github.io/registry/r/<component.json>
 ```
 
 - Nice to have
@@ -140,7 +140,7 @@ To use a register's component inside another project you need to execute the fol
 To make it easier to download components form the registry I suggest you to add this script to your `package.json`. By doing so you only need to execute this command followed by the component identifier
 
 ```json
-"registry-add:": "sh -c 'pnpm dlx shadcn@latest add https://3dinformatica.github.io/area-registry/r/$1' -"
+"registry-add:": "sh -c 'pnpm dlx shadcn@latest add https://3dinformatica.github.io/registry/r/$1' -"
 ```
 
 ```bash
